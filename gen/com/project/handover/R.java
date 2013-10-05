@@ -39,7 +39,7 @@ public final class R {
         public static final int app_name=0x7f050000;
         public static final int error_detected=0x7f050002;
         public static final int error_writing=0x7f050004;
-        public static final int ok_detection=0x7f050005;
+        public static final int ok_handover=0x7f050005;
         public static final int ok_writing=0x7f050003;
     }
     public static final class style {

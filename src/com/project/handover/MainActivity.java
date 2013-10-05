@@ -28,19 +28,21 @@ import android.widget.Toast;
 @SuppressLint({ "ParserError", "ParserError" })
 public class MainActivity extends Activity{
 
-	NfcAdapter adapter;
-	PendingIntent pendingIntent;
-	IntentFilter writeTagFilters[];
-	boolean writeMode;
-	Tag mytag;
-	Context ctx;
+	private NfcAdapter adapter;
+	private PendingIntent pendingIntent;
+	private IntentFilter writeTagFilters[];
+	private boolean writeMode;
+	private Tag mytag;
+	private Context ctx;
+	private Toast toast;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		ctx=this;
+		ctx = getApplicationContext();
+		toast = Toast.makeText(ctx, "", Toast.LENGTH_LONG );
 		Button btnWrite = (Button) findViewById(R.id.button);
 		final TextView message = (TextView)findViewById(R.id.edit_message);
 
@@ -70,6 +72,7 @@ public class MainActivity extends Activity{
 		IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
 		tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
 		writeTagFilters = new IntentFilter[] { tagDetected };
+
 		
 	}
 
@@ -119,7 +122,8 @@ public class MainActivity extends Activity{
 			String payload = getPayloadFromIntent(intent);
 			if(payload == null || payload.isEmpty())
 				return;
-			Toast.makeText(this, this.getString(R.string.ok_detection) + payload, Toast.LENGTH_LONG ).show();
+			Thread tagHandler = new Thread(new TagHandler(payload, toast));
+			tagHandler.start();
 		}
 	}
 	

@@ -6,6 +6,6 @@
     <string name="error_detected">TAG NOT DETECTED.</string>
     <string name="ok_writing">MESSAGE WRITTEN</string>
     <string name="error_writing">ERROR DURING WRITING. ARE YOU SURE THAT YOUR TAG IS CLOSE TO YOUR MOBILE PHONE?</string>
-    <string name="ok_detection">TAG DETECTED: </string>
+    <string name="ok_handover">SUCCESS: </string>
 
 </resources>
