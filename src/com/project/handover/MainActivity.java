@@ -122,7 +122,7 @@ public class MainActivity extends Activity{
 			String payload = getPayloadFromIntent(intent);
 			if(payload == null || payload.isEmpty())
 				return;
-			Thread tagHandler = new Thread(new TagHandler(payload, toast));
+			Thread tagHandler = new Thread(new TagHandler(payload, toast, this));
 			tagHandler.start();
 		}
 	}

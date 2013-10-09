@@ -10,15 +10,17 @@ public class TagHandler implements Runnable {
 	private String patient;
 	private final String nurse = "Rose";
 	private Toast toast;
+	private MainActivity activity;
 	
-	public TagHandler(String patient, Toast toast) {
+	public TagHandler(String patient, Toast toast, MainActivity actvitity) {
 		this.toast = toast;
 		this.patient = patient;
+		this.activity = actvitity;
 	}
 	
 	public void run() {
 		try{
-			socket = new Socket("192.168.1.102", 5000);		
+			socket = new Socket("78.91.69.177", 5000);		
 		} catch(Exception e){
 			e.printStackTrace();
 			return;
@@ -29,12 +31,20 @@ public class TagHandler implements Runnable {
 			startLoginActivity();
 		}
 		else {
-			String response = sendHandover();
+			final String response = sendHandover();
 			if(response == null)
 				return;
 			System.out.println(response);
-			toast.setText(response);
-			toast.show();
+			
+			Runnable r = new Runnable() {
+				public void run() {
+
+					toast.setText(response);
+					toast.show();
+					}
+				};
+				
+			activity.runOnUiThread(r);
 		}
 	}
 	
