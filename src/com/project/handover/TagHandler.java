@@ -20,7 +20,7 @@ public class TagHandler implements Runnable {
 	
 	public void run() {
 		try{
-			socket = new Socket("78.91.69.177", 5000);		
+			socket = new Socket("fred.item.ntnu.no", 5000);		
 		} catch(Exception e){
 			e.printStackTrace();
 			return;
