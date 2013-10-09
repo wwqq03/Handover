@@ -12,8 +12,7 @@ public class TagHandler implements Runnable {
 	private Toast toast;
 	private MainActivity activity;
 	
-	public TagHandler(String patient, Toast toast, MainActivity actvitity) {
-		this.toast = toast;
+	public TagHandler(String patient, MainActivity actvitity) {
 		this.patient = patient;
 		this.activity = actvitity;
 	}
