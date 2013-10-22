@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,10 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <!-- <TextView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" /> -->
+        android:text="@string/hello_world" />
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,4 +33,51 @@
             android:text="Write!!" />
     </LinearLayout>
 
-</RelativeLayout>
+</RelativeLayout> -->
+<AbsoluteLayout
+	android:id="@+id/widget0"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/nurse"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<TextView
+		android:id="@+id/widget33"
+		android:layout_width="218dp"
+		android:layout_height="50dp"
+		android:text="Velkommen"
+		android:textSize="35sp"
+		android:textColor="#ffff6666"
+		android:gravity="center"
+		android:layout_x="52dp"
+		android:layout_y="68dp" />
+	<Button
+		android:id="@+id/button_logoff"
+		android:layout_width="130dp"
+		android:layout_height="44dp"
+		android:text="Logg ut"
+		android:textSize="20sp"
+		android:layout_x="97dp"
+		android:layout_y="147dp" />
+	<Button
+		android:id="@+id/botton_change"
+		android:layout_width="90dp"
+		android:layout_height="wrap_content"
+		android:text="Endre"
+		android:textSize="20sp"
+		android:layout_x="214dp"
+		android:layout_y="262dp" />
+
+	<EditText
+	    android:id="@+id/text_room"
+	    android:layout_width="195dp"
+	    android:layout_height="wrap_content"
+	    android:layout_x="20dp"
+	    android:layout_y="271dp"
+	    android:ems="10"
+	    android:hint="Romnummer"
+	    android:textSize="18sp" >
+
+	    <requestFocus />
+	</EditText>
+
+</AbsoluteLayout>

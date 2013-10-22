@@ -2,23 +2,27 @@ package com.project.handover;
 
 import java.io.*;
 import java.net.*;
+
+import android.app.IntentService;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
-public class TagHandler implements Runnable {
+public class TagHandler extends IntentService {
 	
 	private Socket socket;
 	private String room;
-	private final String nurse = "Rose";
-	private Toast toast;
-	private MainActivity activity;
+	private String nurse;
 	
-	public TagHandler(String room,Toast toast, MainActivity actvitity) {
-		this.toast = toast;
-		this.room = room;
-		this.activity = actvitity;
+	public TagHandler() {
+		super("TagHandlerService");
 	}
 	
-	public void run() {
+	@Override
+	protected void onHandleIntent(Intent tagIntent) {
 		try{
 			socket = new Socket("fred.item.ntnu.no", 5000);
 			//for debugging in local server
@@ -27,6 +31,8 @@ public class TagHandler implements Runnable {
 			e.printStackTrace();
 			return;
 		}
+		room = tagIntent.getExtras().getString("room");
+		nurse = tagIntent.getExtras().getString("nurse");
 		if(room == null)
 			return;
 		else if(nurse == null) {
@@ -36,17 +42,15 @@ public class TagHandler implements Runnable {
 			final String response = sendHandover();
 			if(response == null)
 				return;
-			System.out.println(response);
-			
-			Runnable r = new Runnable() {
-				public void run() {
-
-					toast.setText(response);
-					toast.show();
-					}
-				};
-				
-			activity.runOnUiThread(r);
+			Log.i("Response", response);
+					
+			Handler handler = new Handler(Looper.getMainLooper());  
+		    handler.post(new Runnable() {  
+		        @Override  
+		        public void run() {  
+		        	Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG ).show();
+		        }  
+		    });
 		}
 	}
 	
@@ -86,7 +90,8 @@ public class TagHandler implements Runnable {
 	}
 	
 	public void startLoginActivity() {
-		
+		Intent in = new Intent(getApplicationContext(), LoginActivity.class);
+		startActivity(in);
 	}
 
 }

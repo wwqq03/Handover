@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout
+	android:id="@+id/widget37"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:background="@drawable/nurse"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<Button
+	    android:id="@+id/button_login"
+	    android:layout_width="119dp"
+	    android:layout_height="50dp"
+	    android:layout_x="136dp"
+	    android:layout_y="146dp"
+	    android:background="#ffff99ff"
+	    android:gravity="center"
+	    android:text="Logg in"
+	    android:textSize="27sp" />
+
+	<EditText
+	    android:id="@+id/text_password"
+	    android:layout_width="236dp"
+	    android:layout_height="wrap_content"
+	    android:layout_x="49dp"
+	    android:layout_y="92dp"
+	    android:ems="10"
+	    android:hint="Passord"
+	    android:textSize="18sp" >
+
+	    <requestFocus />
+	</EditText>
+
+	<EditText
+	    android:id="@+id/text_name"
+	    android:layout_width="236dp"
+	    android:layout_height="wrap_content"
+	    android:layout_x="47dp"
+	    android:layout_y="35dp"
+	    android:ems="10"
+	    android:hint="navn"
+	    android:textSize="18sp" />
+
+</AbsoluteLayout>
