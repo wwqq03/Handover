@@ -35,7 +35,7 @@ public class MainActivity extends Activity{
 	private PendingIntent pendingIntent;
 	private IntentFilter writeTagFilters[];
 	private boolean writeMode;
-	private Tag mytag;
+	private static Tag mytag;
 	private Context ctx;
 	private String user;
 	private SharedPreferences prefs;
@@ -43,6 +43,7 @@ public class MainActivity extends Activity{
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		ctx = getApplicationContext();
 		prefs = getSharedPreferences(PREFS_NAME, 0);
 		user = prefs.getString("user", "-1");
@@ -50,17 +51,6 @@ public class MainActivity extends Activity{
 			startLoginActivity();
 			return;
 		}
-		
-		adapter = NfcAdapter.getDefaultAdapter(this);
-		pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-		IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-		tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
-		writeTagFilters = new IntentFilter[] { tagDetected };
-
-		Intent in = getIntent();
-		mytag = in.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-		Log.d("onCreate", in.toString());
-		onResolveIntent(in);
 		
 		setContentView(R.layout.activity_main);
 		Button btnWrite = (Button) findViewById(R.id.botton_change);
@@ -105,6 +95,20 @@ public class MainActivity extends Activity{
 				startLoginActivity();
 			}
 		});
+		
+		adapter = NfcAdapter.getDefaultAdapter(this);
+		pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+		IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+		tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+		writeTagFilters = new IntentFilter[] { tagDetected };
+
+		Intent in = getIntent();
+		Tag temp = in.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+		if(temp != null){
+			mytag = temp;
+		}
+		Log.d("onCreate", in.toString());
+		onResolveIntent(in);
 	}
 
 	
@@ -168,8 +172,9 @@ public class MainActivity extends Activity{
 			startLoginActivity();
 			return;
 		}
-		if(NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())){
-			mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+		if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())
+				|| NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())){
+			//mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
 		}
 		setIntent(intent);
 		onResolveIntent(intent);

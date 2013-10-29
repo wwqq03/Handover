@@ -1,6 +1,7 @@
 package com.project.handover;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity{
+	
+	public static final String LOGINACTIVITY_CLOSE_MESSAGE = "LoginActivity_Close";
 	
 	private Context ctx;
 	

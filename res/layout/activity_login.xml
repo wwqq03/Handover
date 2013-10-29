@@ -12,9 +12,9 @@
 	    android:layout_height="50dp"
 	    android:layout_x="136dp"
 	    android:layout_y="146dp"
-	    android:background="#ffff99ff"
+	    android:background="#d0d0d0"
 	    android:gravity="center"
-	    android:text="Logg in"
+	    android:text="Logg inn"
 	    android:textSize="27sp" />
 
 	<EditText
@@ -23,6 +23,7 @@
 	    android:layout_height="wrap_content"
 	    android:layout_x="49dp"
 	    android:layout_y="92dp"
+	    android:password="true"
 	    android:ems="10"
 	    android:hint="Passord"
 	    android:textSize="18sp" >
