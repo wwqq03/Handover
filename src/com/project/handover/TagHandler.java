@@ -24,9 +24,9 @@ public class TagHandler extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent tagIntent) {
 		try{
-			//socket = new Socket("fred.item.ntnu.no", 5000);
+			socket = new Socket("fred.item.ntnu.no", 5000);
 			//for debugging in local server
-			socket = new Socket("192.168.1.102", 5000);
+			//socket = new Socket("192.168.1.102", 5000);
 		} catch(Exception e){
 			e.printStackTrace();
 			return;

@@ -33,9 +33,9 @@ public class LoginHandler implements Runnable{
 		}
 		
 		try{
-			//Socket socket = new Socket("fred.item.ntnu.no", 5000);
+			Socket socket = new Socket("fred.item.ntnu.no", 5000);
 			//for debugging in local server
-			Socket socket = new Socket("192.168.1.102", 5000);
+			//Socket socket = new Socket("192.168.1.102", 5000);
 			
 			PrintWriter writer = new PrintWriter(socket.getOutputStream());
 			InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
