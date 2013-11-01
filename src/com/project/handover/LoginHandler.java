@@ -33,9 +33,9 @@ public class LoginHandler implements Runnable{
 		}
 		
 		try{
-			Socket socket = new Socket("fred.item.ntnu.no", 5000);
+			//Socket socket = new Socket("fred.item.ntnu.no", 5000);
 			//for debugging in local server
-			//Socket socket = new Socket("192.168.1.102", 5000);
+			Socket socket = new Socket("192.168.1.102", 5000);
 			
 			PrintWriter writer = new PrintWriter(socket.getOutputStream());
 			InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
@@ -58,22 +58,23 @@ public class LoginHandler implements Runnable{
 			writer.println(msgToSend);
 			writer.flush();
 			
-			String response = reader.readLine();
+			String rawResponse = reader.readLine();
 			reader.close();
-			
-			if(response == null || response.isEmpty()){
+			if(rawResponse == null){
 				Log.d("run", "response is null or empty");
 				return;
-			}			
-			Log.i("Response", response);
+			}
 			
-			if(response.startsWith("200")){
+			Response response = new Response(rawResponse);
+					
+			Log.i("Response", response.toString());
+			
+			if(response.isPositiveResponse()){
 				SharedPreferences prefs = loginActivity.getSharedPreferences(MainActivity.PREFS_NAME, 0);
 				SharedPreferences.Editor editor = prefs.edit();
 				
 				editor.putString("user", name);
-				String[] syntex = response.split(",");
-				if(syntex.length == 2 && syntex[1].equals("C")){
+				if(response.getRole() != null && response.getRole().equals("C")){
 					editor.putString("role", "C");
 				}
 				else{

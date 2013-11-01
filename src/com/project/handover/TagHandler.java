@@ -24,9 +24,9 @@ public class TagHandler extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent tagIntent) {
 		try{
-			socket = new Socket("fred.item.ntnu.no", 5000);
+			//socket = new Socket("fred.item.ntnu.no", 5000);
 			//for debugging in local server
-			//socket = new Socket("192.168.1.102", 5000);
+			socket = new Socket("192.168.1.102", 5000);
 		} catch(Exception e){
 			e.printStackTrace();
 			return;
@@ -57,7 +57,7 @@ public class TagHandler extends IntentService {
 	public String sendHandover() {
 		if(room == null || nurse == null)
 			return null;
-		String response = null;
+		String res = null;
 		try{
 			PrintWriter writer = new PrintWriter(socket.getOutputStream());
 			InputStreamReader streamReader = new InputStreamReader(socket.getInputStream());
@@ -75,8 +75,18 @@ public class TagHandler extends IntentService {
 			writer.println(msgToSend);
 			writer.flush();
 			
-			response = reader.readLine();
-			reader.close();					
+			String rawResponse = reader.readLine();
+			reader.close();
+			
+			Response response = new Response(rawResponse);
+			if(response.isHandoverReponse()){
+				if(response.isPositiveResponse()){
+					res = "Handover success for " + room;
+				}
+				else{
+					res = response.getMessage();
+				}
+			}
 		} catch(Exception e){
 			e.printStackTrace();
 		} finally {
@@ -86,7 +96,7 @@ public class TagHandler extends IntentService {
 				e.printStackTrace();
 			}
 		}
-		return response;
+		return res;
 	}
 	
 	public void startLoginActivity() {
